@@ -2,7 +2,7 @@
 
 This project looks at roadwork at the street level in New York City.
 
-The main question is whether winter weather and related street conditions help explain or predict where resurfacing happens later. To get at that, I combined roadwork records with street reference data, weather summaries, plow coverage, and traffic data, then built a street-level modeling table.
+The main question is whether winter weather and related street conditions help explain or predict where resurfacing happens later. To get at that, we combine roadwork records with street reference data, weather summaries, plow coverage, and traffic data, then built a street-level modeling table.
 
 ## What this is
 
