@@ -1,10 +1,6 @@
 # NYC Street Weather / Roadwork Project
 
-## Project point
-
 This project builds street-level NYC features to see whether weather, plow activity, traffic, and prior roadwork help explain or predict later resurfacing / roadwork activity.
-
-The repo is notebook-first. The main workflow is now separated from the older scratch work.
 
 ## Public data sources visible from the code
 
