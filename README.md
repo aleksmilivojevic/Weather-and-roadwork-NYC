@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # NYC Street Weather / Roadwork Project
 
 ## Project point
