@@ -1,105 +1,103 @@
-# NYC Street Weather / Roadwork Project
+# Weather and Roadwork in NYC
 
-This project builds street-level NYC features to see whether weather, plow activity, traffic, and prior roadwork help explain or predict later resurfacing / roadwork activity.
+This project looks at roadwork at the street level in New York City.
 
-## Public data sources visible from the code
+The main question is whether winter weather and related street conditions help explain or predict where resurfacing happens later. To get at that, I combined roadwork records with street reference data, weather summaries, plow coverage, and traffic data, then built a street-level modeling table.
 
-- NYC Open Data plow feed:
-  `https://data.cityofnewyork.us/resource/rmhc-afj9.csv`
-- NYC traffic counts:
-  reflected in the bundled `traffic_1.csv` and `traffic_2.csv`
-- Open-Meteo historical weather:
-  reflected in the bundled hourly and daily weather files
+## What this is
 
-`dot_inhouse_resurfacing.csv` is in the workspace, but there is no downloader code for it in the repo. It looks like a manual DOT in-house export.
+At a high level, this repo does three things:
 
-## Cleaned layout
+1. takes roadwork data and maps it onto a consistent street reference
+2. builds street-level feature tables from weather, plow, and traffic data
+3. uses those features to study and predict later summer roadwork
+
+The repo is notebook-based because most of the work here was exploratory and iterative, but the main workflow is now separated from older scratch work.
+
+## Data used
+
+The project combines a few different sources:
+
+- DOT resurfacing / roadwork records
+- CSCL, the Citywide Street Centerline file, used as the street reference table
+- historical weather data
+- plow coverage data
+- traffic count data
+
+In the notebooks:
+
+- `DOT` means New York City Department of Transportation
+- `CSCL` means Citywide Street Centerline
+
+The key early step is mapping the street names in the DOT resurfacing data onto CSCL street names so everything can be joined consistently later.
+
+## Main notebooks
 
 - `01_dot_to_cscl_mapping.ipynb`
   Maps DOT street names to CSCL street names.
 - `02_build_resurfacing_features.ipynb`
-  Builds the resurfacing street-season table.
+  Cleans the resurfacing data and builds the street-season resurfacing table.
 - `03_build_street_weather_features.ipynb`
-  Builds the street weather tables.
+  Assigns streets to weather stations and builds street-level weather tables.
 - `04_build_traffic_features.ipynb`
-  Builds the traffic table.
+  Cleans and aggregates the traffic data.
 - `05_process_plow_features.ipynb`
-  Builds or inspects plow-derived features.
+  Processes plow data and builds plow-derived coverage features.
 - `06_model_roadwork_weather.ipynb`
-  Runs the baseline model.
+  Runs a baseline model on the final modeling table.
 - `07_project_findings.ipynb`
-  Checks the current project state.
+  Summarizes the current project state and main findings.
+
+## Repository layout
 
 - `data/reference/`
-  Reference data such as `CSCL.csv` and LION/SND files.
+  Street reference files and related materials.
 - `data/raw/`
-  Raw inputs.
+  Raw inputs used by the notebooks.
 - `data/derived/`
-  Derived tables and outputs.
-- `reports/`
-  Markdown summaries.
+  Derived tables produced by the pipeline.
 - `archive/`
-  Older notebooks not used in the main workflow.
+  Older notebooks and scratch work that are not part of the main workflow.
+- `reports/`
+  Short written summaries.
 
-## Main workflow
+## Main result
 
-1. Keep `data/raw/roadwork/dot_inhouse_resurfacing.csv` in place.
-2. Run `01_dot_to_cscl_mapping.ipynb`.
-3. Run `02_build_resurfacing_features.ipynb`.
-4. Run `03_build_street_weather_features.ipynb`.
-5. Run `04_build_traffic_features.ipynb`.
-6. Use the bundled plow-derived outputs as-is, or run `05_process_plow_features.ipynb` if you have the full raw `data/raw/plow/plow_*.csv` set and want to rebuild them.
-7. Run `06_model_roadwork_weather.ipynb`.
-8. Use `07_project_findings.ipynb` and `reports/project_findings.md` for the current summary.
+The main modeling table in this repo is `data/derived/street_weather_lagged_model.csv`.
 
-## What was merged from `GITHUB_NEWER`
-
-- `plow_coverage_0.csv` through `plow_coverage_39.csv` were merged into `data/derived/plow_coverage/`.
-- `decisiontree_cleaned_data.csv` was merged into `data/derived/decisiontree_cleaned_data.csv`.
-- The decision-tree notebook was kept in `archive/decisiontree_regression_experiment.ipynb`.
-
-This helped fill in derived outputs, but it did not recover the full raw plow chunk set.
-
-## Current limits
-
-- The roadwork raw export is present, but it is still a manual input with no downloader code in the repo.
-- The full raw plow chunk set `data/raw/plow/plow_*.csv` is still not present.
-- Those raw plow files were not in `GITHUB_NEWER` either.
-
-So the cleaned workflow runs from the current snapshot, but full raw plow regeneration is still not set up here.
-
-## What you can run now
-
-- You can rerun the mapping, resurfacing, weather, traffic, modeling, and findings notebooks from this workspace.
-- You can use the bundled `plow_coverage` outputs and `plow_df.csv` without rebuilding them.
-- You only need raw plow chunk files if you want to rebuild the plow part from scratch.
-
-## GitHub notes
-
-- The repo is set up to publish the cleaned notebooks, helper scripts, docs, reference data, and derived CSV outputs.
-- `.gitignore` excludes the manual roadwork raw export, partial raw plow chunk files, cache files, and the local DuckDB scratch file.
-- For a public repo, keep those ignores in place.
-- For a private full-data repo, you can add the raw files intentionally.
-
-## Current snapshot findings
-
-- `dot_to_cscl.csv`: 100,804 rows
-- `street_weather.csv`: 119,990 rows
-- `street_weather_daily.csv`: 599,950 rows
-- `resurfacing_agg_full.csv`: 20,671 rows
-- `traffic_agg.csv`: 818 streets
-- `plow_df.csv`: 69,078 rows
-- `street_weather_lagged_model.csv`: 276,000 rows
-- positive class rate in the lagged model table: about `7.0%`
-
-A simple random-forest baseline on the lagged model table reached about:
+Using that table, a simple random forest baseline gives:
 
 - ROC-AUC: `0.5698`
 - positive-class precision: `0.1114`
 - positive-class recall: `0.3476`
 
-The strongest predictors were prior-summer roadwork features. Weather variables mattered less.
-=======
-# Weather-and-roadwork-NYC
-NYC street-level roadwork analysis using resurfacing, weather, plow, and traffic data.
->>>>>>> fc9d6d6298aab6127571b4af674d235e5b2d2faa
+The main pattern is that prior roadwork matters more than weather. Weather adds some signal, but the strongest predictors are the lagged roadwork features, especially whether a street had roadwork in recent summers.
+
+So the current project is more convincing as a persistence-style roadwork prediction problem than as a strong weather-only explanation.
+
+## How to run
+
+The main workflow is:
+
+1. run `01_dot_to_cscl_mapping.ipynb`
+2. run `02_build_resurfacing_features.ipynb`
+3. run `03_build_street_weather_features.ipynb`
+4. run `04_build_traffic_features.ipynb`
+5. use the bundled plow-derived outputs, or rerun `05_process_plow_features.ipynb` if you have the full raw plow files
+6. run `06_model_roadwork_weather.ipynb`
+7. look at `07_project_findings.ipynb` for the summary
+
+## Notes
+
+- Some raw files are not included in the public-facing version of the repo.
+- The roadwork raw file appears to be a manual DOT export rather than something downloaded directly by repository code.
+- The raw plow chunk set is not fully included here, but the derived plow outputs used later in the project are present.
+
+## Files worth starting with
+
+If you are opening this repo for the first time, the best places to start are:
+
+- `01_dot_to_cscl_mapping.ipynb`
+- `03_build_street_weather_features.ipynb`
+- `06_model_roadwork_weather.ipynb`
+- `07_project_findings.ipynb`
