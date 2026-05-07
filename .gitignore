@@ -1,0 +1,22 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+.ipynb_checkpoints/
+
+# Local raw inputs that should not be published by default.
+data/raw/roadwork/dot_inhouse_resurfacing.csv
+data/raw/plow/plow_*.csv
+
+# Keep the cleaned derived CSV outputs, but skip local binary scratch artifacts.
+data/derived/*.duckdb
+
+# Leftover local staging area from earlier cleanup passes.
+plow original datasets/
+
+
+data/reference/snd/win11/
+data/reference/lion/lion.gdb/
+data/derived/street_weather_lagged_model.csv
