@@ -44,9 +44,9 @@ The key early step is mapping the street names in the DOT resurfacing data onto 
 - `05_process_plow_features.ipynb`
   Processes plow data and builds plow-derived coverage features.
 - `06_model_roadwork_weather.ipynb`
-  Runs a baseline model on the final modeling table.
+  Runs the baseline model and contains the actual model results.
 - `07_project_findings.ipynb`
-  Summarizes the current project state and main findings.
+  Summarizes the current project state and data snapshot.
 
 ## Repository layout
 
@@ -71,6 +71,8 @@ Using that table, a simple random forest baseline gives:
 - positive-class precision: `0.1114`
 - positive-class recall: `0.3476`
 
+These results are in `06_model_roadwork_weather.ipynb`.
+
 The main pattern is that prior roadwork matters more than weather. Weather adds some signal, but the strongest predictors are the lagged roadwork features, especially whether a street had roadwork in recent summers.
 
 So the current project is more convincing as a persistence-style roadwork prediction problem than as a strong weather-only explanation.
@@ -84,8 +86,8 @@ The main workflow is:
 3. run `03_build_street_weather_features.ipynb`
 4. run `04_build_traffic_features.ipynb`
 5. use the bundled plow-derived outputs, or rerun `05_process_plow_features.ipynb` if you have the full raw plow files
-6. run `06_model_roadwork_weather.ipynb`
-7. look at `07_project_findings.ipynb` for the summary
+6. run `06_model_roadwork_weather.ipynb` for the model results
+7. look at `07_project_findings.ipynb` for the project summary and dataset snapshot
 
 ## Notes
 
