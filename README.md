@@ -87,8 +87,7 @@ The main workflow is:
 
 ## Notes
 
-- Some raw files are not included in the public-facing version of the repo.
-- The roadwork raw file appears to be a manual DOT export rather than something downloaded directly by repository code.
+- Some large raw files are not included in the public-facing version of the repo.
 - The raw plow chunk set is not fully included here, but the derived plow outputs used later in the project are present.
 
 ## Files worth starting with
