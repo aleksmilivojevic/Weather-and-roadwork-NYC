@@ -17,5 +17,3 @@ Raw inputs that are still incomplete:
 Right now only `plow_0.csv` and `plow_1.csv` are present locally.
 
 The notebooks point here for raw inputs.
-
-The missing raw plow files were also not present in `GITHUB_NEWER/fall-2025-climate-and-road-maintenance-main`.
