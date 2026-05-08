@@ -48,7 +48,7 @@ A key early step is mapping the street names in the DOT resurfacing data onto CS
 - `07_project_findings.ipynb`
   Summarizes the current project state and data snapshot.
 
-## Repository layout
+## Repo layout
 
 - `data/reference/`
   Street reference files and related materials.
@@ -58,8 +58,6 @@ A key early step is mapping the street names in the DOT resurfacing data onto CS
   Derived tables produced by the pipeline.
 - `archive/`
   Older notebooks and scratch work that are not part of the main workflow.
-- `reports/`
-  Short written summaries.
 
 ## Main result
 
