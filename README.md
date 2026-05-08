@@ -4,7 +4,7 @@ This project looks at roadwork at the street level in New York City.
 
 The main question is whether winter weather and related street conditions help explain or predict where resurfacing happens later. To get at that, we combine roadwork records with street reference data, weather summaries, plow coverage, and traffic data, then built a street-level modeling table.
 
-## What this is
+## Overview
 
 At a high level, this repo does three things:
 
@@ -29,9 +29,9 @@ In the notebooks:
 - `DOT` means New York City Department of Transportation
 - `CSCL` means Citywide Street Centerline
 
-The key early step is mapping the street names in the DOT resurfacing data onto CSCL street names so everything can be joined consistently later.
+A key early step is mapping the street names in the DOT resurfacing data onto CSCL street names so everything can be joined consistently later.
 
-## Main notebooks
+## Notebooks
 
 - `01_dot_to_cscl_mapping.ipynb`
   Maps DOT street names to CSCL street names.
