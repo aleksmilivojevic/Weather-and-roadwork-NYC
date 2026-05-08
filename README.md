@@ -73,8 +73,6 @@ These results are in `06_model_roadwork_weather.ipynb`.
 
 The main pattern is that prior roadwork matters more than weather. Weather adds some signal, but the strongest predictors are the lagged roadwork features, especially whether a street had roadwork in recent summers.
 
-So the current project is more convincing as a persistence-style roadwork prediction problem than as a strong weather-only explanation.
-
 ## How to run
 
 The main workflow is:
